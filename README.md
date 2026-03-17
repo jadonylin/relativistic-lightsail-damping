@@ -1,6 +1,9 @@
-# Relativistic lightsail dynamics optimization and dynamics simulation.
+# Relativistic lightsail optimization and dynamics simulation.
 
 ## Overview 
+This repository is associated with the manuscript "Asymptotic stability of laser-driven lightsails: 
+Orders of magnitude enhancement by optical dispersion engineering in gratings".
+
 The main directory contains modules that perform electromagnetic simulations (RCWA) of the grating.
 The "Optimization" folder contains scripts and modules for running the optimization.
 The "Dynamics" folder contains scripts and modules for running the dynamics simulation.
