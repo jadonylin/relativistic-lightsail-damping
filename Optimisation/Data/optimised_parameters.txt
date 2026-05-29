@@ -13,13 +13,13 @@ substrate_eps   = 2.8946339949463242
 
 Best narrow-band grating parameters:
 wavelength=1., angle=0., Nx=1000, nG=30, Qabs=np.inf, RCWA_engine="TORCWA", torcwa_edge_sharpness=45
-grating_pitch   = 1.588999104221404
-grating_depth   = 0.6814547486670015
-box1_width      = 1.1635183838602672
-box2_width      = 1.2269988733783472
-box_centre_dist = 0.4843187147417837
-box1_eps        = 12.249968465054828
-box2_eps        = 8.43981679664437
+grating_pitch   = 1.3278179767544154
+grating_depth   = 1.6493381555220523
+box1_width      = 1.1005164595670012
+box2_width      = 1.1687259428830645
+box_centre_dist = 0.26313504578620395
+box1_eps        = 7.434858747369126
+box2_eps        = 4.019905709154574
 gaussian_width  = 20.0
-substrate_depth = 1.8404998380763957
-substrate_eps   = 7.724841176163067
+substrate_depth = 0.7561041941454308
+substrate_eps   = 6.61814426387377
