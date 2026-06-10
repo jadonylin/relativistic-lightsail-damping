@@ -1,4 +1,4 @@
-Best broadband grating parameters:
+Best 0.2c grating parameters (sorted optimum number 0):
 wavelength=1., angle=0., Nx=100, nG=12, Qabs=np.inf, RCWA_engine="TORCWA", torcwa_edge_sharpness=45
 grating_pitch   = 1.227
 grating_depth   = 0.230778322304215
@@ -11,7 +11,7 @@ gaussian_width  = 20.0
 substrate_depth = 0.27076587378746103
 substrate_eps   = 2.8946339949463242
 
-Best narrow-band grating parameters:
+Best narrow-band grating parameters (sorted optimum number 21):
 wavelength=1., angle=0., Nx=1000, nG=30, Qabs=np.inf, RCWA_engine="TORCWA", torcwa_edge_sharpness=45
 grating_pitch   = 1.3278179767544154
 grating_depth   = 1.6493381555220523
@@ -23,3 +23,16 @@ box2_eps        = 4.019905709154574
 gaussian_width  = 20.0
 substrate_depth = 0.7561041941454308
 substrate_eps   = 6.61814426387377
+
+Best 0.01c grating parameters (sorted optimum number 1):
+wavelength=1., angle=0., Nx=100, nG=12, Qabs=np.inf, RCWA_engine="TORCWA", torcwa_edge_sharpness=45
+grating_pitch   = 1.2957573432476348
+grating_depth   = 0.9921762509724283
+box1_width      = 0.11871115463573735
+box2_width      = 1.1582479147156597
+box_centre_dist = 0.06048650914887595
+box1_eps        = 3.039723093608139
+box2_eps        = 2.954757546845299
+gaussian_width  = 20.0
+substrate_depth = 0.6883974941891459
+substrate_eps   = 3.2588413854189637
