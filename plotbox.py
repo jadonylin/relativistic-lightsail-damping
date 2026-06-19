@@ -14,10 +14,11 @@ from matplotlib.ticker import Locator
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 plt.rcParams['figure.figsize'] = [15, 7.5] # change inline figure size
 # plt.rcParams["font.family"] = "Helvetica"
-LINE_WIDTH = 2.2
-SMALL_SIZE = 16
-MEDIUM_SIZE = 18
-BIGGER_SIZE = 20
+ax_width = 1.
+LINE_WIDTH = 1.5*ax_width
+SMALL_SIZE = 12
+MEDIUM_SIZE = 14
+BIGGER_SIZE = 16
 plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
 plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
 plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
@@ -240,3 +241,90 @@ class PlotBox:
         fig.set_size_inches(fig_width/1.2, fig_height/1.2)
         
         return fig, ax
+
+    def show_Eigs(self, wavelength_range: list=[1., 1.5],  I: float=10e9, num_plot_points: int=200, 
+                eig_real_log_axis: bool=True, eig_imag_log_axis: bool=True, marker: str='o', return_eigvals: bool=False):
+        """
+        Show eigenvalue spectrum for the twobox.
+
+        Parameters
+        ----------
+        wavelength_range    :   Wavelength range to plot spectrum (same units as grating pitch)
+        I                   :   Laser intensity
+        num_plot_points     :   Number of points to plot
+        eig_real_log_axis   :   If true, logarithmic scale for real part of eigenvalues
+        eig_imag_log_axis   :   If true, logarithmic scale for imaginary part of eigenvalues
+        marker              :   Marker style passed to plt.plot()
+        return_eigvals      :   If true, return eigvals array in addition to figure and axes
+
+        Returns
+        -------
+        fig         :   Spectrum figure object
+        (ax1, ax2)  :   Real and imaginary spectrum axis objects
+        """
+
+        wavelengths = np.linspace(*wavelength_range, num_plot_points)
+        init_wavelength = self.wavelength  # record user-initialised wavelength
+
+        ## CALCULATE EIGS ##
+        eigvals = self.npa.zeros((4,num_plot_points), dtype=np.complex128)
+        
+        for idx, lam in enumerate(wavelengths):
+            # Calculate eigs for each order
+            self.wavelength = self.npa.array(lam)
+            real, imag = fom_module.Eigs(self, I=I,m=m,c1=c, grad_method="grad", return_vec=False)
+            eigvals[:,idx] = real + 1j*imag
+            
+        self.wavelength = init_wavelength # restore user-initialised wavelength
+
+
+        # I'm assuming the dummy subplot creates spacing between the two other subplots
+        fig, (ax1, dummy, ax2) = plt.subplots(nrows=1, ncols=3, width_ratios=(1,0.1,1))
+        dummy.axis('off')
+        p = self.to_numpy(self.grating_pitch)
+        ax1.set_xlim(np.array(wavelength_range)) # normalise to grating pitch
+        ax2.set_xlim(np.array(wavelength_range)) # normalise to grating pitch
+        ax2.yaxis.tick_right()
+        ax2.yaxis.set_label_position("right")
+
+        colorReal = (0.7, 0, 0)
+        colorImag = 'blue'
+        for i in range(4):            
+            ax1.plot(wavelengths,np.real(self.to_numpy(eigvals[i,:])), marker, markersize=0.5, markerfacecolor=colorReal, fillstyle='full',  color=colorReal)
+            ax2.plot(wavelengths,np.imag(self.to_numpy(eigvals[i,:])), marker, markersize=0.5, markerfacecolor=colorImag, fillstyle='full',  color=colorImag)
+            
+
+        if eig_real_log_axis:
+            linthr = 0.1
+            ax1.set_yscale("symlog", linthresh=linthr, linscale=0.4)
+            ax1.yaxis.set_minor_locator(MinorSymLogLocator(linthr))
+        if eig_imag_log_axis:
+            linthr = 0.1
+            ax2.set_yscale("symlog", linthresh=linthr, linscale=0.4)
+            ax2.yaxis.set_minor_locator(MinorSymLogLocator(linthr))
+
+        
+        ax1.axhline(y=0, color='black', linestyle='-', lw = '1')
+        ax1.tick_params(axis='both', which='both', direction='in')  # ticks inside box
+        # ax1.tick_params(axis='y', color=colorReal, labelcolor=colorReal)  # colored ticks
+        ax1.set_ylabel(ylabel=rf"$\Re(\lambda)$")  #color=colorReal  # colored y label
+        ax1.set(xlabel=r"$\lambda'$ [$\lambda_0$]")
+
+        ax2.axhline(y=0, color='black', linestyle='-', lw = '1')
+        ax2.tick_params(axis='both', which='both', direction='in')  # ticks inside box
+        # ax2.tick_params(axis='y', color = colorImag, labelcolor=colorImag)  # colored ticks
+        ax2.set_ylabel(ylabel=rf"$\Im(\lambda)$")  #color=colorImag  # colored y label
+        ax2.set(xlabel=r"$\lambda'$ [$\lambda_0$]")
+
+        # fig.suptitle(t=rf"$h_1' = {self.grating_depth/self.wavelength:.3f}\lambda_0$, $\Lambda' = {self.grating_pitch/self.wavelength:.3f}\lambda_0$")
+
+        # Modify axes
+        cm_to_inch = 0.393701
+        fig_width = 30*cm_to_inch
+        fig_height = 17.6*cm_to_inch
+        fig.set_size_inches(fig_width/1.2, fig_height/1.2)
+
+        if return_eigvals:
+            return wavelengths, eigvals, fig, (ax1, ax2)
+        else:
+            return fig, (ax1, ax2)
