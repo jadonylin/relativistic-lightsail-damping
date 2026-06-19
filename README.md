@@ -41,10 +41,10 @@ constraint functions unique to the twobox grating. It also contains a function `
 sorts the optima from the `num_core` `.pkl` files by largest-to-smallest figure of merit and allows
 you to select one by index.
 
-The `Data` folder houses the optimization data we obtained for two separate runs: narrow band 
+The `Data` folder houses the optimization data we obtained: narrow band 
 (Fasympmonochrome) and broad band (Fasymp). The figures of merit with these respective names are
 defined in `fom.py` and the manuscript. We used 200 cores with a maximum optimization runtime of 1440 minutes 
-to obtain these results. The best single-wavelength and broadband gratings we found after curating the 400 
+to obtain these results. The best single-wavelength and broadband gratings we found after curating all the
 optima have parameters stored in the `optimised_parameters.txt` file.
 
 ### Dynamics

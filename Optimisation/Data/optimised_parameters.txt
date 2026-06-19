@@ -34,5 +34,36 @@ box_centre_dist = 0.06048650914887595
 box1_eps        = 3.039723093608139
 box2_eps        = 2.954757546845299
 gaussian_width  = 20.0
-substrate_depth = 0.6883974941891459
-substrate_eps   = 3.2588413854189637
+substrate_depth = 1.8404998380763957
+substrate_eps   = 7.724841176163067
+
+Best 0.025c-band grating parameters:
+wavelength=1., angle=0., Nx=100, nG=12, Qabs=np.inf, RCWA_engine="TORCWA", torcwa_edge_sharpness=45
+grating_pitch   = 1.027
+grating_depth   = 0.5280690809853275
+box1_width      = 0.6151459350559659
+box2_width      = 0.6713631530540174
+box_centre_dist = 0.2364645756372567
+box1_eps        = 2.1225725272160845
+box2_eps        = 5.087336654756934
+gaussian_width  = 20.0
+substrate_depth = 0.14522896822728898
+substrate_eps   = 5.135490023368396
+
+Best 0.05c-band grating parameters:
+wavelength=1., angle=0., Nx=100, nG=12, Qabs=np.inf, RCWA_engine="TORCWA", torcwa_edge_sharpness=45
+grating_pitch   = 1.053
+grating_depth   = 0.5177471694376491
+box1_width      = 0.7040140888446126
+box2_width      = 0.6809865783252688
+box_centre_dist = 0.24616662779365103
+box1_eps        = 2.1522021964447977
+box2_eps        = 4.457841290545126
+gaussian_width  = 20.0
+substrate_depth = 0.06634676852250142
+substrate_eps   = 8.160612967600951
+
+The best eigenvalues for the bandwidths in the range 0.075c-0.175c (inclusive) were obtained by
+averaging the eigenvalues of the best 0.2c-band grating over the ranges corresponding to
+0.075c-0.175c. These results, along with the best 0.025c and 0.05c gratings, were used to
+estimate the damping enhancement vs bandwidth scaling in Appendix F of the paper.
