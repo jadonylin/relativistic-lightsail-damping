@@ -33,8 +33,10 @@ cores `num_cores`. The parameter space is divided into `num_cores` disjoint sets
 full grating parameter space defined by the user. The parameter for grating thickness (h) is the
 parameter that is divided into disjoint sets. The output of the optimization is `num_cores` `.pkl`
 files, each containing the best grating found by the optimizer on a single core. The output
-optimization files are then analyzed by ordering them from best to worst in terms of the figure
-of merit and the top results are examined to see if the grating has a physical unit cell.
+optimization files are then analyzed in `run_parallel_extract.ipynb` by ordering them from best to 
+worst in terms of the figure of merit and the top results are examined to see if the grating has 
+a physical unit cell. This notebook also plots the eigenvalues of the grating and evaluates the
+sensitivity of the grating to variations in the physical parameters.
 
 The `opt.py` file contains the wrapped global optimization function and local optimization
 constraint functions unique to the twobox grating. It also contains a function `extract_opt()`, which
@@ -42,7 +44,7 @@ sorts the optima from the `num_core` `.pkl` files by largest-to-smallest figure 
 you to select one by index.
 
 The `Data` folder houses the optimization data we obtained: narrow band 
-(Fasympmonochrome) and broad band (Fasymp). The figures of merit with these respective names are
+(Fasympmonochrome) and broad bands (Fasymp). The figures of merit with these respective names are
 defined in `fom.py` and the manuscript. We used 200 cores with a maximum optimization runtime of 1440 minutes 
 to obtain these results. The best single-wavelength and broadband gratings we found after curating all the
 optima have parameters stored in the `optimised_parameters.txt` file.
@@ -63,6 +65,8 @@ described in the manuscript.
 The `dynplot.py` module contains functions for extracting the dynamics results and plotting the sail 
 coordinates in a subplots grid. These functions are used in `Dynamics_results.ipynb`.
 
-The `Data` folder has the lookup table data for the broad band (Fasymp) optimized grating. The raw dynamics
-data was not stored here due to the large file size, but can be computed using the saved optimization data
-files and lookup table data files.
+The `Data` folder has the lookup table data for the broad band (Fasymp) optimized grating. The ordinary
+lookup-table data contains angles up to 0.105°, which was used to generate the dynamics result in the paper.
+The "10p6" lookup-table data contains angles up to 10.6°, which was used to estimate the range of initial
+conditions for which the sail is still stable. The raw dynamics data for all runs was not stored here due 
+to the large file size, but can be computed using the saved optimization data and lookup table data.
